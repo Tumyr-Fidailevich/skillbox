@@ -1,14 +1,14 @@
 #include <iostream>
 #include <limits>
 #include <numeric>
-void printArray(float arr[], int n)
+void printArray(float (&arr)[], const int n)
 {
     for (int i = 0; i < n; ++i)
         std::cout << arr[i] << " ";
     std::cout << "\n";
 }
 
-void heapify(float arr[], int n, int i){
+void heapify(float (&arr)[], const int n, const int i){
   int largest = i;
   int l = 2 * i + 1;
   int r = 2 * i + 2;
@@ -26,7 +26,7 @@ void heapify(float arr[], int n, int i){
 
 }
 
-void heapSort(float arr[], int n)
+void heapSort(float (&arr)[], const int n)
 {
 
     for (int i = n / 2 - 1; i >= 0; i--)
