@@ -1,4 +1,4 @@
 L3.6.png
 test
-.vscode
-.exe
+*.vscode
+*.exe
