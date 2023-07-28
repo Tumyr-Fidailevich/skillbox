@@ -3,44 +3,31 @@
 #include <numeric>
 #include <vector>
 
-void printArray(std::vector<int> &vector)
+void printBuffer(std::vector<int> &vector, int index)
 {
-    for (int i = 0; i < vector.size(); i++)
+    for (int i = index; i < vector.size(); i++)
     {
+        std::cout << vector[i] << " ";
+    }
+    for(int i = 0; i < index; i++){
         std::cout << vector[i] << " ";
     }
     std::cout << std::endl;
 }
 
-void rewriteBuffer(std::vector<int> &vector, int number)
-{
-    for (int i = 0; i < vector.size(); i++)
-    {
-        vector[i] = vector[i + 1];
-    }
-    vector[vector.size() - 1] = number;
-}
-
 int main()
 {
-    std::vector<int> dataBase(5);
-    int i = 0;
+    int bufferSize = 5;
+    std::vector<int> dataBase(bufferSize);
+    int index = 0;
+    int number;
     while (true)
     {
-        int number;
         std::cout << "input number: ";
         std::cin >> number;
-        while (number != -1)
-        {
-            if (i < dataBase.size())
-            {
-                dataBase[i] = number;
-                i++;
-            }
-            else
-            {
-                rewriteBuffer(dataBase, number);
-            }
+        while (number != -1){
+            dataBase[index++] = number;
+            index = index % bufferSize;
             std::cout << "input number: ";
             std::cin >> number;
         }
@@ -53,7 +40,7 @@ int main()
         }
         else
         {
-            printArray(dataBase);
+            printBuffer(dataBase, index);
         }
     }
     return 0;
