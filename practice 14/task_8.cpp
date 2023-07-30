@@ -47,8 +47,7 @@ bool shoot(std::vector<std::vector<char>> &gameField, int &x, int &y)
 
 bool shipCoordValidation(int startX, int startY, int endX, int endY, int size)
 {
-    return coordValidation(startX, startY) && coordValidation(endX, endY) &&
-           &&distance(startX, startY, endX, endY) == (size - 1) * (size - 1);
+    return coordValidation(startX, startY) && coordValidation(endX, endY) && distance(startX, startY, endX, endY) == (size - 1) * (size - 1);
 }
 
 void insertShip(std::vector<std::vector<char>> &gameField, int size)
@@ -73,9 +72,9 @@ void insertShip(std::vector<std::vector<char>> &gameField, int size)
         }
         if (shipCoordValidation(x_0, y_0, x, y, size))
         {
-            for (int i = x_0; i < x; i++)
+            for (int i = x_0; i <= x; i++)
             {
-                for (int j = y_0; j < y; j++)
+                for (int j = y_0; j <= y; j++)
                 {
                     gameField[i][j] = 'X';
                 }
@@ -96,7 +95,7 @@ std::vector<std::vector<char>> gameInitialization()
         }
     }
     std::cout << "You can't place ships diagonally\n";
-    for (int shipSize = 1; i <= 4; i++)
+    for (int shipSize = 1; shipSize <= 4; shipSize++)
     {
         insertShip(gameField, shipSize);
     }
@@ -139,6 +138,7 @@ int main()
     std::string currentPlayer = firstPlayer;
     while (!(isWin(firstPlayerGameField) || isWin(secondPlayerGameField)))
     {
+        std::cout << currentPlayer << "'s turn. ";
         if (currentPlayer == firstPlayer)
         {
             if(!gameMove(secondPlayerGameField)){
