@@ -2,6 +2,15 @@
 #include <limits>
 #include <numeric>
 
+bool numberValidation(std::string &number){
+    for(int i = 0; i < number.length(); i++){
+        if(*(number + i) < '0' || *(number + i) > '9'){
+            return false;
+        }
+    }
+    return true;
+}
+
 void mySwap(int* a, int* b)
 {
     *a = *a + *b;
@@ -12,10 +21,10 @@ void mySwap(int* a, int* b)
 int main()
 {
 
-    int a, b;
+    std::string a, b;
     std::cout << "Input 2 integer numbers: ";
     std::cin >> a >> b;
-    if (std::cin.fail() || std::cin.peek() != '\n')
+    if (std::cin.fail() || std::cin.peek() != '\n' || numberValidation(a) || numberValidation(b))
     {
         std::cerr << "Error\n";
         std::cin.clear();
@@ -24,8 +33,10 @@ int main()
     }
     else
     {
-        mySwap(&a, &b);
-        std::cout << a << " " << b << std::endl;
+        int numA = std::stoi(a);
+        int numB = std::stoi(b);
+        mySwap(&numA, &numB);
+        std::cout << numA << " " << numB << std::endl;
         return 0;
     }
 }
