@@ -4,7 +4,7 @@
 
 bool numberValidation(std::string &number){
     for(int i = 0; i < number.length(); i++){
-        if(*(number + i) < '0' || *(number + i) > '9'){
+        if(number[i] < '0' || number[i] > '9'){
             return false;
         }
     }
@@ -24,7 +24,7 @@ int main()
     std::string a, b;
     std::cout << "Input 2 integer numbers: ";
     std::cin >> a >> b;
-    if (std::cin.fail() || std::cin.peek() != '\n' || numberValidation(a) || numberValidation(b))
+    if (std::cin.fail() || std::cin.peek() != '\n' || !numberValidation(a) || !numberValidation(b))
     {
         std::cerr << "Error\n";
         std::cin.clear();
