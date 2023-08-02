@@ -1,4 +1,6 @@
 #include <iostream>
+#include <limits>
+#include <numeric>
 
 enum note 
 { 
@@ -10,6 +12,21 @@ enum note
     LA = 32, 
     SI = 64 
 };
+
+bool inputValidation()
+{
+    if (std::cin.fail() || std::cin.peek() != '\n')
+    {
+        std::cerr << "Input error\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 void printMelody(std::string melody[], int &size){
     for(int i = 0; i < size; i++){
@@ -39,9 +56,13 @@ int main()
 {   
     int size = 2;
     std::string melody[size];
+    bool isValid = true;
     for(int i = 0; i < size; i++){
         std::cout << "Input your combination: ";
         std::cin >> melody[i];
+        if(!inputValidation()) {
+            return 1;
+        }
     }  
     printMelody(melody, size);
     return 0;
