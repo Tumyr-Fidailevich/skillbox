@@ -38,67 +38,61 @@ bool readVector(std::vector<int> &vec, int &size)
 {
     std::cin.clear();
     std::string buffer;
-    getline(std::cin, buffer);
-    std::stringstream buffer_stream(buffer);
-    std::string str;
     int i = 0;
-    for (int i = 0; i < size; i++)
+    while (i < size)
     {
-        if (!(buffer_stream >> str))
+        getline(std::cin, buffer);
+        std::stringstream buffer_stream(buffer);
+        std::string str;
+        while (buffer_stream >> str && i < size)
         {
-            std::cout << "Error in values amount\n";
-            return false;
+            if (numberValidation(str))
+            {
+                vec.push_back(std::stoi(str));
+                i++;
+            }
+            else
+            {
+                std::cout << "Error in input values\n";
+                return false;
+            }
         }
-        if (numberValidation(str))
-        {
-            vec.push_back(std::stoi(str));
-        }
-        else
-        {
-            std::cout << "Error in input values\n";
-            return false;
-        }
-    }
-    if(buffer_stream >> str){
-        std::cout << "Error in values amount\n";
-        return false;
     }
     return true;
 }
 
 bool readArray(int arr[], int &size)
 {
+    std::cin.clear();
     std::string buffer;
-    getline(std::cin, buffer);
-    std::stringstream buffer_stream(buffer);
-    std::string str;
-    for (int i = 0; i < size; i++)
+    int i = 0;
+    while (i < size)
     {
-        if (!(buffer_stream >> str))
+        getline(std::cin, buffer);
+        std::stringstream buffer_stream(buffer);
+        std::string str;
+        while (buffer_stream >> str && i < size)
         {
-            std::cout << "Error in values amount\n";
-            return false;
+            if (numberValidation(str))
+            {
+                arr[i] = std::stoi(str);
+                i++;
+            }
+            else
+            {
+                std::cout << "Error in input values\n";
+                return false;
+            }
         }
-        if (numberValidation(str))
-        {
-            arr[i] = std::stoi(str);
-        }
-        else
-        {
-            std::cout << "Error in input values\n";
-            return false;
-        }
-    }
-    if(buffer_stream >> str){
-        std::cout << "Error in values amount\n";
-        return false;
     }
     return true;
 }
 
 template <typename T>
-void printIterable(const T& iterable, int size) {
-    for (int i = 0; i < size; i++) {
+void printIterable(const T &iterable, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
         std::cout << iterable[i] << " ";
     }
     std::cout << std::endl;
@@ -116,10 +110,12 @@ int main()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     bool isReaded;
     isReaded = readVector(vec, size);
-    if(isReaded){
+    if (isReaded)
+    {
         std::cout << "Input integer values from array: ";
         isReaded = readArray(arr, size);
-        if(isReaded){
+        if (isReaded)
+        {
             swapvec(vec, arr, size);
         }
     }
