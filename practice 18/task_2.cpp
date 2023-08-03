@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 
 int combCount(int stepsNumber, int jumpDist = 3, int curStep = 0)
 {

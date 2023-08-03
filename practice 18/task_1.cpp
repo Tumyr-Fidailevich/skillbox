@@ -19,7 +19,7 @@ bool numberValidation(std::string &number)
 
 void swapvec(std::vector<int> vec, int arr[], int &size)
 {
-    for (int i = 0; i < vec.size(); i++)
+    for (int i = 0; i < size; i++)
     {
         std::swap(vec[i], arr[i]);
     }
@@ -34,18 +34,20 @@ void swapvec(std::vector<int> vec, int arr[], int &size)
     }
 }
 
-void readVector(std::vector<int> &vec, int &size)
+bool readVector(std::vector<int> &vec, int &size)
 {
     std::cin.clear();
     std::string buffer;
     getline(std::cin, buffer);
     std::stringstream buffer_stream(buffer);
     std::string str;
+    int i = 0;
     for (int i = 0; i < size; i++)
     {
         if (!(buffer_stream >> str))
         {
-            throw std::invalid_argument("Error in values amount\n");
+            std::cout << "Error in values amount\n";
+            return false;
         }
         if (numberValidation(str))
         {
@@ -54,15 +56,17 @@ void readVector(std::vector<int> &vec, int &size)
         else
         {
             std::cout << "Error in input values\n";
-            break;
+            return false;
         }
     }
     if(buffer_stream >> str){
-        throw std::invalid_argument("Error in values amount\n");
+        std::cout << "Error in values amount\n";
+        return false;
     }
+    return true;
 }
 
-void readArray(int arr[], int &size)
+bool readArray(int arr[], int &size)
 {
     std::string buffer;
     getline(std::cin, buffer);
@@ -72,7 +76,8 @@ void readArray(int arr[], int &size)
     {
         if (!(buffer_stream >> str))
         {
-            throw std::invalid_argument("Error in values amount\n");
+            std::cout << "Error in values amount\n";
+            return false;
         }
         if (numberValidation(str))
         {
@@ -81,12 +86,22 @@ void readArray(int arr[], int &size)
         else
         {
             std::cout << "Error in input values\n";
-            break;
+            return false;
         }
     }
     if(buffer_stream >> str){
-        throw std::invalid_argument("Error in values amount\n");
+        std::cout << "Error in values amount\n";
+        return false;
     }
+    return true;
+}
+
+template <typename T>
+void printIterable(const T& iterable, int size) {
+    for (int i = 0; i < size; i++) {
+        std::cout << iterable[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 int main()
@@ -99,9 +114,14 @@ int main()
     std::cout << "Input integer values from vector: ";
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    readVector(vec, size);
-    std::cout << "Input integer values from array: ";
-    readArray(arr, size);
-    swapvec(vec, arr, size);
+    bool isReaded;
+    isReaded = readVector(vec, size);
+    if(isReaded){
+        std::cout << "Input integer values from array: ";
+        isReaded = readArray(arr, size);
+        if(isReaded){
+            swapvec(vec, arr, size);
+        }
+    }
     return 0;
 }
