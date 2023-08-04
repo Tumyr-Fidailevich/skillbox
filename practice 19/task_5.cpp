@@ -91,11 +91,13 @@ void game()
         int offset;
         std::cout << "Input your offset: ";
         std::cin >> offset;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         arrow += offset;
         arrow = arrow > 13 ? arrow % 13 : arrow;
         int curSector = getSector(sectors, arrow);
-        std::string questionPath = questionFolder + "\\queistion_sector_" + std::to_string(curSector);
-        std::string answerPath = answerFolder + "\\queistion_sector_" + std::to_string(curSector);
+        std::string questionPath = questionFolder + "\\question_sector_" + std::to_string(curSector) + ".txt";
+        std::string answerPath = answerFolder + "\\answer_sector_" + std::to_string(curSector) + ".txt";
         showQuestion(questionPath);
         std::string answer;
         std::cout << "Your answer: ";
