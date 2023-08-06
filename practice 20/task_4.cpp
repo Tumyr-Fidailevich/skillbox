@@ -3,6 +3,26 @@
 #include <vector>
 #include <cstdlib>
 
+void readFile()
+{
+    std::ifstream text;
+    text.open("atm.bin", std::ios::binary);
+    if (text.is_open())
+    {
+        const int bufferSize = 64;
+        char buffer[bufferSize];
+        while (!text.eof())
+        {
+            text.read(buffer, bufferSize);
+            std::streamsize bytesRead = text.gcount();
+            for(int i = 0; i < bytesRead; i++){
+                std::cout << buffer[i];
+            }
+        }
+    }
+    text.close();
+}
+
 int getRandomNumber(int min, int max)
 {
     return min + std::rand() % (max - min + 1);
@@ -27,7 +47,7 @@ int* init()
     return bills;
 }
 
-void addMoney(int bills[])
+void addMoney(int* bills)
 {
     int arr[] = {1, 2, 5};
     std::ofstream atm("atm.bin", std::ios::binary);
@@ -46,7 +66,7 @@ void addMoney(int bills[])
     atm.close();
 }
 
-void getMoney(int bills[], int &userMoney)
+void getMoney(int *bills, int &userMoney)
 {
     std::ofstream atm("atm.bin", std::ios::binary);
     bool opSucces = true;
@@ -119,6 +139,10 @@ int main()
         {
             std::cout << "Invalid sum" << std::endl;
         }
+    }
+    else if(op == '=')
+    {
+        readFile();
     }
     else
     {

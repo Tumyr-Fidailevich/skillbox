@@ -21,7 +21,7 @@ bool isName(std::string &name)
     }
     return true;
 }
-//5.12.2022
+// 5.12.2022
 bool isDate(std::string &date)
 {
     int curPoint = -1;
@@ -42,9 +42,12 @@ bool isDate(std::string &date)
             curPoint = i;
             pos++;
         }
-        if(pos == 0 && curPoint != -1){
+        if (pos == 0 && curPoint != -1)
+        {
             return number > 0 || number < 32;
-        }else if(pos == 1){
+        }
+        else if (pos == 1)
+        {
             return number > 0 || number < 13;
         }
     }
@@ -53,10 +56,12 @@ bool isDate(std::string &date)
 
 bool isNumber(std::string &number)
 {
-    try{
+    try
+    {
         std::stod(number);
     }
-    catch(const std::invalid_argument &e){
+    catch (const std::invalid_argument &e)
+    {
         return false;
     }
     return true;
