@@ -91,22 +91,27 @@ bool isNumber(std::string &number)
     return true;
 }
 
-void read_person(std::ifstream &dataBase, Data &person)
+bool read_person(std::ifstream &dataBase, Data &person)
 {
     int name_len = 0, surname_len = 0, date_len = 0;
     dataBase.read((char *)&name_len, sizeof(name_len));
+    if(name_len == 0)
+    {
+        return false;
+    }
     person.name.resize(name_len);
-    dataBase.read((char *)person.name.c_str(), name_len);
+    dataBase.read(&person.name[0], name_len);
 
     dataBase.read((char *)&surname_len, sizeof(surname_len));
     person.surname.resize(surname_len);
-    dataBase.read((char *)person.surname.c_str(), surname_len);
+    dataBase.read(&person.surname[0], surname_len);
 
     dataBase.read((char *)&date_len, sizeof(date_len));
     person.date.resize(date_len);
-    dataBase.read((char *)person.date.c_str(), date_len);
+    dataBase.read(&person.date[0], date_len);
 
     dataBase.read((char *)&person.payout, sizeof(person.payout));
+    return true;
 }
 
 void write_person(std::ofstream &dataBase, Data &person)
@@ -133,9 +138,8 @@ int main()
         Data person;
         if (dataBase.is_open())
         {
-            while (!dataBase.eof())
+            while (read_person(dataBase, person))
             {
-                read_person(dataBase, person);
                 std::cout << person.name << " " << person.surname << " " << person.date << " " << person.payout << std::endl;
             }
         }
