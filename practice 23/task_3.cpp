@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 
-#define FOR()
 #define CALL(func, arg1, arg2) \
     {                          \
         func(arg1, arg2);      \
