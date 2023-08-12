@@ -5,3 +5,5 @@ test
 *.txt
 *.png
 *.bin
+!CMakeLists.txt
+build
