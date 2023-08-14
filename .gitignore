@@ -7,3 +7,10 @@ test
 *.bin
 !CMakeLists.txt
 build
+*.vs
+*.sln 
+*.vcxproj
+*pdb
+*.vcxproj.filters
+*.vcxproj.user
+*x64

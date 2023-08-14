@@ -48,7 +48,7 @@ void add_task(std::vector<Task> &tasks)
 {
     Task task;
     std::cout << "Input your task: ";
-    getline(std::cin, task.name);
+    std::getline(std::cin, task.name);
     task.startTime = std::time(nullptr);
     tasks.push_back(task);
 }
