@@ -3,6 +3,7 @@
 #include <ctime>
 #include <map>
 #include <cstdlib>
+#include <iomanip>
 
 class Track {
 private:
@@ -51,7 +52,7 @@ public:
                 status = playing;
                 std::tm date = tracks[trackName].getDate();
                 std::cout << "Name: " << tracks[trackName].getName() << std::endl;
-                std::cout << "Creation date: " << std::asctime(&date) << std::endl;
+                std::cout << "Creation date: " << std::put_time(&date, "%Y/%m/%d") << std::endl;
                 std::cout << "Duration: " << tracks[trackName].getDuration() << std::endl;
             } else {
                 std::cout << "There is no such track in the player" << std::endl;
@@ -81,6 +82,9 @@ public:
             std::cout << "Playback stopped" << std::endl;
         }
     }
+    void add(const std::pair<std::string, Track> &pair){
+        tracks.insert(pair);
+    }
 };
 
 int main() {
@@ -89,7 +93,23 @@ int main() {
         std::string input;
         std::cout << "Input your command: ";
         std::cin >> input;
-        if (input == "play") {
+        if(input == "add") {
+            std::string name;
+            std::cout << "Input name of track: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::tm date{};
+            std::cout << "Input the creation date of the track: ";
+            std::cin >> std::get_time(&date, "%Y/%m/%d");
+            std::time_t duration;
+            std::cout << "Input the duration of the track: ";
+            std::cin >> duration;
+            Track track;
+            track.setName(name);
+            track.setDate(date);
+            track.setDuration(duration);
+            player->add(std::make_pair(name, track));
+        }else if (input == "play") {
             std::cout << "Input track name: ";
             std::cin >> input;
             player->play(input);
