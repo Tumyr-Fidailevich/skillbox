@@ -1,13 +1,14 @@
 #include <iostream>
-#include <memory>
+#include <string>
 #include <cassert>
+#include "smart_ptr.h"
 
 class Toy
 {
 private:
 	std::string _name;
 public:
-	explicit Toy(const std::string& name = "defaultToy") : _name(name)
+	explicit Toy(const std::string &name = "default") : _name(name)
 	{}
 
 	~Toy()
@@ -15,47 +16,69 @@ public:
 		std::cout << "Toy " << _name << " was dropped " << std::endl;
 	}
 
-	std::string getName()
+	Toy(const Toy &other)
+	{
+		_name = other._name;
+	}
+
+	Toy &operator=(const Toy &other)
+	{
+		if (&other == this)
+			return *this;
+		_name = other._name;
+		return *this;
+	}
+
+	std::string getName() const
 	{
 		return _name;
 	}
 };
-
 
 class Dog
 {
 private:
 	std::string _name;
 	int _age;
-	std::shared_ptr<Toy> _lovelyToy;
+	shared_ptr<Toy> _lovelyToy;
 public:
-	explicit Dog(const std::string& name) :Dog(0, name, nullptr)
-	{}
-	explicit Dog(const std::shared_ptr<Toy>& toy) : Dog(0,"default", toy)
-	{}
-	explicit Dog(int age = 0, const std::string& name = "default", const std::shared_ptr<Toy>& toy = nullptr)
+	//В стандартном конструкторе вместо присваивания к нулевому указателю решил просто создавать стандартный объект
+	explicit Dog(int age = 0, const std::string &name = "default", const shared_ptr<Toy> &toy = shared_ptr<Toy>())
 	{
 		assert(age >= 0 && age < 30);
 		_age = age;
 		_name = name;
 		_lovelyToy = toy;
 	}
+
+	//Здесь также вместо nullptr передаю стандартный объект
+	explicit Dog(const std::string &name) : Dog(0, name)
+	{}
+
+	explicit Dog(const shared_ptr<Toy> &toy) : Dog(0, "default", toy)
+	{}
+
+	explicit Dog(const shared_ptr<Toy> &&toy) : Dog(0, "default", toy)
+	{}
+
 	Dog(const Dog &other)
 	{
 		_age = other._age;
 		_name = other._name;
 		_lovelyToy = other._lovelyToy;
 	}
-	Dog& operator=(const Dog &other)
+
+	Dog &operator=(const Dog &other)
 	{
-		if(&other == this)
+		if (&other == this)
 			return *this;
 		_age = other._age;
 		_name = other._name;
 		_lovelyToy = other._lovelyToy;
 		return *this;
 	}
-	void getToy(std::shared_ptr<Toy> &toy)
+
+	void getToy(const shared_ptr<Toy> &toy)
 	{
 		if (_lovelyToy == toy)
 		{
@@ -74,18 +97,20 @@ public:
 		if (_lovelyToy == nullptr)
 		{
 			std::cout << "Nothing to drop" << std::endl;
-		}else {
+		} else
+		{
 			std::cout << _lovelyToy->getName() << " was dropped" << std::endl;
 			_lovelyToy = nullptr;
 		}
 	}
 };
 
+
 int main()
 {
-	std::shared_ptr<Toy> ball = std::make_shared<Toy>("ball");
-	std::shared_ptr<Toy> bone = std::make_shared<Toy>("bone");
-	std::shared_ptr<Toy> frisbee = std::make_shared<Toy>("frisbee");
+	shared_ptr<Toy> ball = make_shared<Toy>("ball");
+	shared_ptr<Toy> bone = make_shared<Toy>("bone");
+	shared_ptr<Toy> frisbee = make_shared<Toy>("frisbee");
 	Dog charlie(10, "Charlie", ball);
 	Dog alex(11, "Alex", bone);
 	Dog sharik("Sharik");
@@ -94,5 +119,6 @@ int main()
 	charlie.dropToy();
 	sharik.getToy(ball);
 	charlie.dropToy();
+
 	return 0;
 }

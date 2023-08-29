@@ -57,6 +57,13 @@ private:
 	std::vector<Talent*> talents;
 public:
 	explicit Dog(const char* name) : _name(name) {}
+	~Dog()
+    {
+        for (auto& talent : talents)
+        {
+            delete talent;
+        }
+    }
 	void addTalent(Talent* pTalent)
 	{
 		talents.push_back(pTalent);
