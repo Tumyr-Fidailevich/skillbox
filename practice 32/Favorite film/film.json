@@ -1,0 +1,13 @@
+{
+  "country" : "USA",
+  "release_date" : "07/16/2010",
+  "studio" : "Warner Bros",
+  "screenwriter" : "Christopher Nolan",
+  "director" : "Christopher Nolan",
+  "cast" : [{"character":  "Dom Cobb", "actor": "Leonardo DiCaprio"},
+            { "character": "Arthur", "actor": "Joseph Gordon-Levitt" },
+            { "character": "Ariadne", "actor": "Ellen Page" },
+            { "character": "Eames", "actor": "Tom Hardy" },
+            { "character": "Saito", "actor": "Ken Watanabe" },
+            { "character": "Mal", "actor": "Marion Cotillard" }]
+}
