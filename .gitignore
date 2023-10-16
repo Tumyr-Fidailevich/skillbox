@@ -11,3 +11,6 @@ build
 *cmake-build-debug
 *build*
 *.user
+!red_button_up.png
+!red_button_down.png
+*.autosave
