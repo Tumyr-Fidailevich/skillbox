@@ -9,3 +9,5 @@ test
 build
 *.idea
 *cmake-build-debug
+*build*
+*.user
