@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/resources">
-        <file>red.png</file>
+        <file>red_button_down.png</file>
+        <file>red_button_up.png</file>
+        <file>click.mp3</file>
     </qresource>
 </RCC>

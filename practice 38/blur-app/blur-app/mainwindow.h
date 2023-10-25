@@ -2,12 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPixmap>
-#include <QMediaPlayer>
-
+#include <QImage>
+#include <QDir>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -19,10 +19,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
+    QString _filePath;
+    QImage _blurImage(QImage source, int blurRadius);
+    void _processSinlgeImage(QString filePath);
 public slots:
-    void button_pressed();
-    void button_released();
-    void button_clicked();
+    void createFileDialog();
+    void setBlurEffectOnImage();
 };
-#endif
+#endif // MAINWINDOW_H
